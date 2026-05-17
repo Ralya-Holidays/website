@@ -394,13 +394,17 @@
                             <div class="info-details">
                                 <strong>Email ID</strong>
                                 <span>info@ralyaholidays.com</span>
+                                <br>
+                                <small>Business Partners: <span>b2b@ralyaholidays.com</span></small>
                             </div>
                         </li>
                         <li>
                             <i class="ri-instagram-line"></i>
                             <div class="info-details">
                                 <strong>Follow us on Instagram</strong>
-                                <a href="https://www.instagram.com/ralyaholidays?igsh=c285Z3p5YmlrZHY5" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="text-decoration: none; color: black;">
+                                <a href="https://www.instagram.com/ralyaholidays?igsh=c285Z3p5YmlrZHY5" target="_blank"
+                                    rel="noopener noreferrer" aria-label="Instagram"
+                                    style="text-decoration: none; color: black;">
                                     <span>@ralyaholidays</span>
                                 </a>
                             </div>
@@ -425,7 +429,8 @@
                         <input type="tel" name="whatsapp" placeholder="WhatsApp Number" />
 
                         <input type="text" name="destination" placeholder="Destination *" required />
-                        <input type="number" id="travelers" name="travelers" placeholder="No. of Travelers *" min="1" required />
+                        <input type="number" id="travelers" name="travelers" placeholder="No. of Travelers *" min="1"
+                            required />
 
                         <select id="vacation-type" name="vacation-type" class="full-width" required>
                             <option value="" disabled selected>
@@ -485,7 +490,11 @@
                             class="ri-star-fill"></i><i class="ri-star-fill"></i>
                     </div>
                     <p class="review-text">
-                        "Great experience with this travel agency for our Thailand trip to Phuket and Krabi, especially during the busy Christmas and New Year Eve holiday season. The itinerary was planned very well, and everything from hotels to transfers and activities was smoothly managed despite peak season rush. Completely hassle-free and memorable trip. Highly recommend them for holiday travel planning!"
+                        "Great experience with this travel agency for our Thailand trip to Phuket and Krabi, especially
+                        during the busy Christmas and New Year Eve holiday season. The itinerary was planned very well,
+                        and everything from hotels to transfers and activities was smoothly managed despite peak season
+                        rush. Completely hassle-free and memorable trip. Highly recommend them for holiday travel
+                        planning!"
                     </p>
                     <h4 class="review-author">- Shyam Vicky</h4>
                     <span class="review-destination">Thailand</span>
@@ -498,7 +507,9 @@
                             class="ri-star-fill"></i><i class="ri-star-fill"></i>
                     </div>
                     <p class="review-text">
-                        "Wonderful trip to Andaman including Havelock, Neil Island and Baratang Limestone cave. Smooth ferry arrangements, clean hotels, well-planned sightseeing, and great support throughout. All coordinated well"
+                        "Wonderful trip to Andaman including Havelock, Neil Island and Baratang Limestone cave. Smooth
+                        ferry arrangements, clean hotels, well-planned sightseeing, and great support throughout. All
+                        coordinated well"
                     </p>
                     <h4 class="review-author">- Subburaj</h4>
                     <span class="review-destination">Andaman & Nicobar Islands</span>
@@ -511,7 +522,8 @@
                             class="ri-star-fill"></i><i class="ri-star-fill"></i>
                     </div>
                     <p class="review-text">
-                        "Trip to Kashmir was well organised and planned . All the hotels arranged were good. The itinerary was thoughtfully planned covering major attractive places. Would definitely recommend"
+                        "Trip to Kashmir was well organised and planned . All the hotels arranged were good. The
+                        itinerary was thoughtfully planned covering major attractive places. Would definitely recommend"
                     </p>
                     <h4 class="review-author">- Sanjana Shailendar</h4>
                     <span class="review-destination">Kashmir</span>
@@ -524,7 +536,11 @@
                             class="ri-star-fill"></i><i class="ri-star-fill"></i>
                     </div>
                     <p class="review-text">
-                        "Amazing experience with this travel agency! They planned my Thailand trip covering Phuket and Krabi perfectly. The itinerary was well-organized, balanced with sightseeing and relaxation, and everything went smoothly. Hotels, transfers, and activities were thoughtfully arranged. Truly stress-free planning and great support throughout the trip. Highly recommended for international travel planning!"
+                        "Amazing experience with this travel agency! They planned my Thailand trip covering Phuket and
+                        Krabi perfectly. The itinerary was well-organized, balanced with sightseeing and relaxation, and
+                        everything went smoothly. Hotels, transfers, and activities were thoughtfully arranged. Truly
+                        stress-free planning and great support throughout the trip. Highly recommended for international
+                        travel planning!"
                     </p>
                     <h4 class="review-author">- Harish</h4>
                     <span class="review-destination">Thailand</span>
@@ -579,7 +595,8 @@
                     </div>
                 </div>
 
-                <textarea name="review" placeholder="Tell us what you loved about your trip..." rows="4" required></textarea>
+                <textarea name="review" placeholder="Tell us what you loved about your trip..." rows="4"
+                    required></textarea>
                 <button type="submit" class="submit-review-btn">Submit Review</button>
             </form>
 
@@ -600,6 +617,62 @@
                 </svg>
                 <span class="pill-btn-text">Review us on Google</span>
             </a>
+        </div>
+    </div>
+
+    <div id="exit-intent-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 650px; padding: 2.5rem 2rem;">
+            <button class="close-modal" id="close-exit-modal" aria-label="Close modal">
+                &times;
+            </button>
+
+            <h3 style="text-align: center; font-size: 1.8rem;">Don't Go Yet!</h3>
+            <p style="text-align: center; margin-bottom: 2rem;">Didn't find what you were looking for? Let our experts craft the perfect itinerary for you.</p>
+
+            <div class="contact-wrapper" style="padding: 0;">
+                <form action="https://api.web3forms.com/submit" method="POST" id="exit-contact-form">
+                    <input type="hidden" name="access_key" value="a0b46932-a8cb-40b7-92a8-04aca703f147">
+                    <input type="hidden" name="subject" value="Exit Intent Enquiry">
+                    <input type="hidden" name="from_name" value="Ralya Holidays">
+                    <input type="checkbox" name="botcheck" style="display: none;">
+
+                    <input type="text" name="name" placeholder="Your Name *" required />
+                    <input type="email" name="email" placeholder="Email ID *" required />
+
+                    <input type="tel" name="phone" placeholder="Phone Number *" required />
+                    <input type="tel" name="whatsapp" placeholder="WhatsApp Number" />
+
+                    <input type="text" name="destination" placeholder="Destination *" required class="full-width" />
+                    
+                    <select id="modal-vacation-type" name="vacation-type" required>
+                        <option value="" disabled selected>Select Vacation Type *</option>
+                        <option value="family">Family</option>
+                        <option value="couple">Couple</option>
+                        <option value="solo">Solo</option>
+                        <option value="friends">Friends</option>
+                        <option value="honeymoon">Honeymoon</option>
+                        <option value="corporate">Corporate</option>
+                    </select>
+
+                    <input type="number" id="modal-travelers" name="travelers" placeholder="No. of Travelers *" min="1" required />
+
+                    <div class="date-group full-width">
+                        <div class="date-inputs-wrapper">
+                            <div class="date-field">
+                                <label for="modal-start-date">Depart *</label>
+                                <input type="date" name="start-date" id="modal-start-date" required />
+                            </div>
+                            <div class="date-field">
+                                <label for="modal-end-date">Return *</label>
+                                <input type="date" name="end-date" id="modal-end-date" required />
+                            </div>
+                        </div>
+                        <small id="modal-date-calc-text" class="calc-text"></small>
+                    </div>
+
+                    <button type="submit" class="full-width">Send Inquiry</button>
+                </form>
+            </div>
         </div>
     </div>
 

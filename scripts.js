@@ -1050,3 +1050,132 @@ document.addEventListener("DOMContentLoaded", () => {
     endDateInput.addEventListener("change", calculateDuration);
   }
 });
+
+/* ==========================================================================
+   8. EXIT INTENT & INACTIVITY MODAL
+   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    const exitModal = document.getElementById("exit-intent-modal");
+    const closeExitModalBtn = document.getElementById("close-exit-modal");
+
+    if (!exitModal) return;
+
+    // Check session storage to ensure it only triggers once per session
+    const hasShownModal = sessionStorage.getItem("exitModalShown");
+
+    const showExitModal = () => {
+        if (!sessionStorage.getItem("exitModalShown")) {
+            exitModal.classList.add("active");
+            sessionStorage.setItem("exitModalShown", "true");
+        }
+    };
+
+    if (!hasShownModal) {
+        // --- Trigger 1: Inactivity Timer (10 Seconds) ---
+        let inactivityTimer;
+        const resetTimer = () => {
+            clearTimeout(inactivityTimer);
+            if (!sessionStorage.getItem("exitModalShown")) {
+                inactivityTimer = setTimeout(showExitModal, 10000); 
+            }
+        };
+
+        // Reset the timer if the user does anything
+        ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, resetTimer, { passive: true });
+        });
+
+        resetTimer(); // Start the timer initially
+
+        // --- Trigger 2: Exit Intent (Improved) ---
+        document.addEventListener("mouseout", (e) => {
+            // e.relatedTarget is null when the mouse completely leaves the browser document.
+            // We use e.clientY < 20 as a 20-pixel buffer to reliably catch them moving up towards the tabs.
+            if (!e.relatedTarget && e.clientY < 20) {
+                showExitModal();
+            }
+        });
+    }
+
+    // Modal Close Logic
+    if (closeExitModalBtn) {
+        closeExitModalBtn.addEventListener("click", () => {
+            exitModal.classList.remove("active");
+        });
+    }
+
+    // Close when clicking the dark overlay outside the modal content
+    exitModal.addEventListener("click", (e) => {
+        if (e.target === exitModal) {
+            exitModal.classList.remove("active");
+        }
+    });
+
+    // --- Modal Form Logic (Replicated from Main Form) ---
+    const exitForm = document.getElementById("exit-contact-form");
+    const modalStartDate = document.getElementById("modal-start-date");
+    const modalEndDate = document.getElementById("modal-end-date");
+    const modalCalcText = document.getElementById("modal-date-calc-text");
+    const modalTravelers = document.getElementById("modal-travelers");
+    const modalVacationType = document.getElementById("modal-vacation-type");
+
+    if (exitForm) exitForm.reset();
+
+    // Prevent selecting past dates
+    const today = new Date().toISOString().split("T")[0];
+    if (modalStartDate && modalEndDate) {
+        modalStartDate.setAttribute("min", today);
+        modalEndDate.setAttribute("min", today);
+    }
+
+    // Solo Traveler Locking Logic
+    if (modalVacationType && modalTravelers) {
+        modalVacationType.addEventListener("change", (e) => {
+            if (e.target.value === "solo") {
+                modalTravelers.value = 1;
+                modalTravelers.disabled = true;
+            } else if (e.target.value === "couple" || e.target.value === "honeymoon") {
+                modalTravelers.value = 2;
+                modalTravelers.disabled = true;
+            } else {
+                modalTravelers.disabled = false;
+            }
+        });
+    }
+
+    // Calculate Duration Logic
+    function calculateModalDuration() {
+        if (modalStartDate.value && modalEndDate.value) {
+            const start = new Date(modalStartDate.value);
+            const end = new Date(modalEndDate.value);
+
+            start.setHours(0, 0, 0, 0);
+            end.setHours(0, 0, 0, 0);
+
+            const diffTime = end - start;
+            const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (nights > 0) {
+                const days = nights + 1;
+                modalCalcText.textContent = `Trip Duration: ${days} Day${days > 1 ? "s" : ""}, ${nights} Night${nights > 1 ? "s" : ""}`;
+                modalCalcText.style.color = "#6b7280";
+            } else if (nights === 0) {
+                modalCalcText.textContent = "Trip Duration: 1 Day (Day Trip)";
+                modalCalcText.style.color = "#6b7280";
+            } else {
+                modalCalcText.textContent = "Error: End date must be after start date.";
+                modalCalcText.style.color = "#ef4444";
+            }
+        } else {
+            modalCalcText.textContent = "";
+        }
+    }
+
+    if (modalStartDate && modalEndDate) {
+        modalStartDate.addEventListener("change", () => {
+            modalEndDate.setAttribute("min", modalStartDate.value);
+            calculateModalDuration();
+        });
+        modalEndDate.addEventListener("change", calculateModalDuration);
+    }
+});
